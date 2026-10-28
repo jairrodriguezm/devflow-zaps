@@ -22,18 +22,18 @@ export class AuthService {
 
   /**
    * Validates current authentication status against backend.
-   * Also captures and cleans URL token parameter if coming back from GitHub OAuth redirect.
+   * Also captures and stores URL token parameter if coming back from GitHub OAuth redirect.
    */
   async checkAuthStatus(): Promise<boolean> {
     this.isLoading.set(true);
 
     try {
-      // Check for token in URL query parameter (OAuth redirect callback)
       if (typeof window !== 'undefined') {
         const urlParams = new URLSearchParams(window.location.search);
         const tokenFromUrl = urlParams.get('token');
         if (tokenFromUrl) {
-          // Clean URL without triggering full page reload
+          localStorage.setItem('devflow_token', tokenFromUrl);
+          // Clean URL parameter without triggering full page reload
           const cleanUrl = window.location.pathname;
           window.history.replaceState({}, document.title, cleanUrl);
         }
@@ -47,6 +47,9 @@ export class AuthService {
       return true;
     } catch {
       this.currentUser.set(null);
+      if (typeof window !== 'undefined') {
+        localStorage.removeItem('devflow_token');
+      }
       return false;
     } finally {
       this.isLoading.set(false);
@@ -54,7 +57,8 @@ export class AuthService {
   }
 
   /**
-   * Redirects browser to initiate GitHub OAuth authorization flow.
+   * Performs a full browser window navigation to initiate GitHub OAuth authorization flow.
+   * Note: Must NOT be an AJAX/HttpClient request to avoid CORS blocking 302 redirects to external domains.
    */
   loginWithGitHub(): void {
     if (typeof window !== 'undefined') {
@@ -71,6 +75,9 @@ export class AuthService {
     } catch (err) {
       console.warn('Logout API error:', err);
     } finally {
+      if (typeof window !== 'undefined') {
+        localStorage.removeItem('devflow_token');
+      }
       this.currentUser.set(null);
       this.router.navigate(['/login']);
     }
