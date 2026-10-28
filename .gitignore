@@ -1,38 +1,69 @@
-# Dependencies
+# ===================================================
+# DevFlow Zaps - Monorepo Git Ignore Rules
+# ===================================================
+
+# Node & Package Managers
 node_modules/
-.pnp
-.pnp.js
-
-# Build outputs
-dist/
-/backend/dist/
-/frontend/dist/
-.angular/
-
-# Environment files
-.env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
-!.env.example
-!/backend/.env.example
-
-# Logs
+*/node_modules/
+package-lock.json.bak
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+.pnpm-debug.log*
 lerna-debug.log*
 *.log
 
-# Editor & OS files
+# Build & Compiled Outputs
+dist/
+build/
+backend/dist/
+backend/build/
+frontend/dist/
+frontend/build/
+out/
+
+# Angular & Frontend Caches
+.angular/
+frontend/.angular/
+.sass-cache/
+.eslintcache
+.cache/
+
+# Environment Variables & Secrets (Keep .env.example)
+.env
+.env.local
+.env.*.local
+*.env
+*.pem
+*.key
+*.cert
+!.env.example
+!**/.env.example
+
+# Docker Volumes & Local Databases
+mongo_data/
+mongo-data/
+data/db/
+
+# Operating System Files
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
 Thumbs.db
+
+# IDE & Editor Files
 .idea/
+*.sublime-workspace
+*.sublime-project
 .vscode/*
 !.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
-*.sublime-workspace
-*.sublime-project
+!frontend/.vscode/settings.json
+!frontend/.vscode/tasks.json
+!frontend/.vscode/launch.json
+!frontend/.vscode/extensions.json
