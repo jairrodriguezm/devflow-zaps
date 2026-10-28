@@ -4,6 +4,7 @@ import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
 import { connectDatabase, disconnectDatabase } from './config/database.js';
 import { authRouter } from './routes/auth.routes.js';
+import { copilotRouter } from './routes/copilot.routes.js';
 import { zapsRouter } from './routes/zaps.routes.js';
 import { webhooksRouter } from './routes/webhooks.routes.js';
 
@@ -29,6 +30,7 @@ app.get('/health', (_req: Request, res: Response) => {
 
 // API Routes
 app.use('/api/auth', authRouter);
+app.use('/api/zaps/copilot', copilotRouter);
 app.use('/api/zaps', zapsRouter);
 app.use('/api/webhooks', webhooksRouter);
 

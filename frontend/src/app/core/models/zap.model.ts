@@ -6,6 +6,8 @@ import type {
   ActionConfig,
   ZapDefinition,
   ExecutionLogItem,
+  CopilotPromptRequest,
+  CopilotDraftResponse,
 } from '@shared';
 
 export type {
@@ -16,6 +18,8 @@ export type {
   ActionConfig,
   ZapDefinition,
   ExecutionLogItem,
+  CopilotPromptRequest,
+  CopilotDraftResponse,
 };
 
 export interface RepositoryItem {

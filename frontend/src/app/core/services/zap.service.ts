@@ -1,7 +1,7 @@
 import { Injectable, inject, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
-import { ZapDefinition, ExecutionLogItem, RepositoryItem } from '../models/zap.model';
+import { ZapDefinition, ExecutionLogItem, RepositoryItem, CopilotDraftResponse } from '../models/zap.model';
 
 @Injectable({
   providedIn: 'root',
@@ -137,5 +137,14 @@ export class ZapService {
     } finally {
       this.isLoadingRepos.set(false);
     }
+  }
+
+  /**
+   * Calls AI Copilot to generate a Zap definition draft from natural language.
+   */
+  async generateDraft(prompt: string): Promise<CopilotDraftResponse> {
+    return firstValueFrom(
+      this.http.post<CopilotDraftResponse>(`${this.apiBase}/copilot`, { prompt })
+    );
   }
 }
