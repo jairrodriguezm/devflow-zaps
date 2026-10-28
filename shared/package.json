@@ -1,0 +1,13 @@
+{
+  "name": "@devflow/shared",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./zap.types.ts",
+    "./zap.types": "./zap.types.ts",
+    "./zap.types.js": "./zap.types.ts"
+  },
+  "main": "./zap.types.ts",
+  "types": "./zap.types.ts"
+}
